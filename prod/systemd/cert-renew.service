@@ -1,0 +1,9 @@
+[Unit]
+Description=Renew certificate
+
+[Service]
+WorkingDirectory=/usr/local/docker/booktype-docker/prod
+ExecStart=/bin/bash cert-renew.sh
+
+[Install]
+WantedBy=multi-user.target

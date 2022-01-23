@@ -4,8 +4,8 @@ FROM ride90/ubuntu-booktype
 
 # set env vars
 ENV INSTANCENAME mybook
-ENV BOOKTYPE_SERVER 127.0.0.1:8000
-ENV BOOKTYPE_URL http://127.0.0.1:8000
+ENV BOOKTYPE_SERVER YOURHOSTNAME
+ENV BOOKTYPE_URL //YOURHOSTNAME
 ENV BOOKTYPE_REDIS_HOST redis
 ENV BOOKTYPE_BROKER_URL amqp://guest:guest@rabbit:5672/
 ENV BOOKTYPE_DATABASE_ENGINE django.db.backends.postgresql_psycopg2
@@ -16,6 +16,8 @@ ENV BOOKTYPE_DATABASE_USER booktype
 ENV BOOKTYPE_DATABASE_PASSWORD booktype
 ENV BOOKTYPE_PANDOC_PATH /usr/bin/pandoc
 ENV BOOKTYPE_MPDF_DIR /code/mpdf60
+
+ENV PIP_INDEX_URL=file:///code/booktype-pip/packages/simple
 
 # create dir for supervisor logs
 RUN mkdir -p /var/log/supervisor
@@ -33,14 +35,16 @@ COPY scripts /code/scripts
 WORKDIR /code
 
 # clone project
-RUN git clone https://github.com/booktype/Booktype.git /code/Booktype/
+RUN git clone https://github.com/YOURGITUSERNAME/Booktype.git /code/Booktype/
+
+RUN git clone https://github.com/YOURGITUSERNAME/booktype-pip.git /code/booktype-pip/
 
 # clone mpdf
 RUN git clone https://github.com/booktype/mpdf.git /code/mpdf60/
 
 # install && create && activate python virtualenv
 # install python dependencies && generate project's skeleton
-RUN pip install virtualenv \
+RUN pip install virtualenv==16.7.5 \
     && virtualenv venv \
     && . venv/bin/activate \
     && pip install -r Booktype/requirements/prod.txt \
@@ -59,6 +63,8 @@ COPY configs/nginx_booktype.conf /etc/nginx/sites-enabled/
 COPY configs/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY configs/uwsgi.ini /code/configs
 COPY configs/uwsgi_params /code/mybook
+
+RUN rm -f /etc/nginx/sites-enabled/default
 
 EXPOSE 8000
 
@@ -79,3 +85,4 @@ EXPOSE 8000
 #     - celery
 CMD ./scripts/wait-for-it.sh -t 60 db:5432 -- ./scripts/manage_py.sh \
     && /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+    
