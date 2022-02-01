@@ -14,7 +14,7 @@ and [Docker](https://docs.docker.com/engine/installation/) installed. You will a
 [docker-compose](https://docs.docker.com/compose/install/#install-compose) installed.
 
 There are only two commands you need to execute:
- - git clone https://github.com/booktype/booktype-docker.git
+ - git clone https://github.com/radioset/booktype-docker.git
  - cd booktype-docker/prod/ && sudo docker-compose up -d
  
 When Docker is ready, you should see the output in the terminal:
