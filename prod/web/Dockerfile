@@ -35,9 +35,9 @@ COPY scripts /code/scripts
 WORKDIR /code
 
 # clone project
-RUN git clone https://github.com/YOURGITUSERNAME/Booktype.git /code/Booktype/
+RUN git clone https://github.com/radioset/Booktype.git /code/Booktype/
 
-RUN git clone https://github.com/YOURGITUSERNAME/booktype-pip.git /code/booktype-pip/
+RUN git clone https://github.com/radioset/booktype-pip.git /code/booktype-pip/
 
 # clone mpdf
 RUN git clone https://github.com/booktype/mpdf.git /code/mpdf60/
