@@ -4,8 +4,8 @@ FROM ride90/ubuntu-booktype
 
 # set env vars
 ENV INSTANCENAME mybook
-ENV BOOKTYPE_SERVER YOURHOSTNAME
-ENV BOOKTYPE_URL //YOURHOSTNAME
+ENV BOOKTYPE_SERVER book.radio-set.ru
+ENV BOOKTYPE_URL //book.radio-set.ru
 ENV BOOKTYPE_REDIS_HOST redis
 ENV BOOKTYPE_BROKER_URL amqp://guest:guest@rabbit:5672/
 ENV BOOKTYPE_DATABASE_ENGINE django.db.backends.postgresql_psycopg2
