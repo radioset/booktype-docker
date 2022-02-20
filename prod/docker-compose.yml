@@ -56,7 +56,7 @@ services:
       - ./certbot/etc:/etc/letsencrypt
       - ./certbot/var:/var/lib/letsencrypt
       - ./proxy/html:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email YOUREMAIL --agree-tos --no-eff-email --domain YOURHOSTNAME --post-hook "touch /etc/letsencrypt/CERT_RENEWED" --test-cert
+    command: certonly --webroot --webroot-path=/var/www/html --email sergun-4@yandex.ru --agree-tos --no-eff-email --domain book.radio-set.ru --post-hook "touch /etc/letsencrypt/CERT_RENEWED" --test-cert
 volumes:
   pg_data: {}
   pg_backups: {}
